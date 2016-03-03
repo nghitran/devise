@@ -65,6 +65,10 @@ module Devise
   mattr_accessor :authentication_keys
   @@authentication_keys = [ :email ]
 
+  # Defines which key will be used when recovering the password for an account
+  mattr_accessor :reset_password_keys
+  @@reset_password_keys = [ :email ]
+
   # If http authentication is enabled by default.
   mattr_accessor :http_authenticatable
   @@http_authenticatable = false

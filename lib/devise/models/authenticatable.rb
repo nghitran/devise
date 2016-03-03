@@ -96,9 +96,20 @@ module Devise
 
         # Find an initialize a record setting an error if it can't be found.
         def find_or_initialize_with_error_by(attribute, value, error=:invalid) #:nodoc:
-          if value.present?
-            conditions = { attribute => value }
-            record = find(:first, :conditions => conditions)
+          find_or_initialize_with_errors([attribute], { attribute => value }, error)
+        end
+
+        # Find or initialize a record with group of attributes based on a list of required attributes.
+        def find_or_initialize_with_errors(required_attributes, attributes, error=:invalid) #:nodoc:
+          attributes = if attributes.respond_to? :permit
+            attributes.slice(*required_attributes).permit!.to_h.with_indifferent_access
+          else
+            attributes.with_indifferent_access.slice(*required_attributes)
+          end
+          attributes.delete_if { |key, value| value.blank? }
+
+          if attributes.size == required_attributes.size
+            record = find_for_authentication(attributes)
           end
 
           unless record
