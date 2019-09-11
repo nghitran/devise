@@ -2,7 +2,7 @@
 
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require File.join(File.dirname(__FILE__), 'lib', 'devise', 'version')
 
 desc 'Default: run tests for all ORMs.'

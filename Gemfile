@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 gem "rails", "~> 3.0.4"
+gem "rdoc"
 
 group :test do
   gem "webrat", "0.7.2", :require => false
